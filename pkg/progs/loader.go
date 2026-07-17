@@ -350,7 +350,7 @@ func GetBPFprogInfo(progFD int) (BpfProgInfo, error) {
 
 	err := objInfo.BpfGetProgramInfoForFD()
 	if err != nil {
-		log.Errorf("failed to get program Info for FD - ", progFD)
+		log.Errorf("failed to get program Info for FD - %d", progFD)
 		return BpfProgInfo{}, err
 	}
 
@@ -382,7 +382,7 @@ func (m *BpfProgram) GetBPFProgAssociatedMapsIDs(progFD int) ([]uint32, error) {
 
 	err = objInfo.BpfGetProgramInfoForFD()
 	if err != nil {
-		log.Errorf("failed to get program Info for FD - ", progFD)
+		log.Errorf("failed to get program Info for FD - %d", progFD)
 		return nil, err
 	}
 	return associatedMaps, nil
@@ -403,7 +403,7 @@ func BpfGetMapInfoFromProgInfo(progFD int, numMaps uint32) ([]ebpf_maps.BpfMapIn
 
 	err := objInfo.BpfGetProgramInfoForFD()
 	if err != nil {
-		log.Errorf("failed to get program Info for FD - ", progFD)
+		log.Errorf("failed to get program Info for FD - %d", progFD)
 		return nil, nil, err
 	}
 
@@ -425,7 +425,7 @@ func BpfGetMapInfoFromProgInfo(progFD int, numMaps uint32) ([]ebpf_maps.BpfMapIn
 
 		bpfMapInfo, err := ebpf_maps.GetBPFmapInfo(mapfd)
 		if err != nil {
-			log.Errorf("failed to get map Info for FD", mapfd)
+			log.Errorf("failed to get map Info for FD - %d", mapfd)
 			return nil, nil, err
 		}
 
@@ -453,7 +453,7 @@ func BpfGetAllProgramInfo() ([]BpfProgInfo, error) {
 		log.Infof("Found prog FD - %d", progfd)
 		bpfProgInfo, err := GetBPFprogInfo(progfd)
 		if err != nil {
-			log.Errorf("failed to get program Info for FD", progfd)
+			log.Errorf("failed to get program Info for FD - %d", progfd)
 			return nil, err
 		}
 		unix.Close(progfd)
